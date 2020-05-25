@@ -6,4 +6,8 @@
     <string name="date_description">25/05/2020</string>
     <string name="button_name">Ver Valores</string>
     <string name="button_title">Navegar Hacia Estadisticas</string>
+    <string name="title_activity_tab">tabActivity</string>
+    <string name="tab_text_1">Córdoba</string>
+    <string name="tab_text_2">Argentina</string>
+    <string name="tab_text_3">Mundo</string>
 </resources>
