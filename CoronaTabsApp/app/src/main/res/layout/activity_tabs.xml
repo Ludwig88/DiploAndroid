@@ -35,16 +35,16 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="130dp"
                         android:layout_marginTop="100dp"
-                        android:layout_marginEnd="150dp"
+                        android:layout_marginEnd="100dp"
                         android:text="@string/tab_1_content"
-                        android:textSize="28sp" />
+                        android:textSize="24sp" />
                     <TextView
                         android:id="@+id/textView2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="150dp"
-                        android:textSize="24sp"
+                        android:textSize="20sp"
                         android:text="@string/stats_presentation" />
                     <TextView
                         android:id="@+id/textView3"
@@ -65,7 +65,7 @@
                         android:layout_width="200dp"
                         android:layout_height="59dp"
                         android:layout_marginStart="10dp"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         android:text="@string/Fallecidos_cba" />
                 </LinearLayout>
                 <LinearLayout
@@ -78,37 +78,37 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="130dp"
                         android:layout_marginTop="100dp"
-                        android:layout_marginEnd="150dp"
-                        android:id="@+id/textView2"
-                        android:textSize="28sp"
+                        android:layout_marginEnd="100dp"
+                        android:id="@+id/textView6"
+                        android:textSize="24sp"
                         android:text="@string/tab_2_content"/>
                     <TextView
-                        android:id="@+id/textView2"
+                        android:id="@+id/textView7"
                         android:layout_width="200dp"
                         android:layout_height="59dp"
                         android:layout_marginStart="10dp"
-                        android:textSize="24sp"
+                        android:textSize="20sp"
                         android:text="@string/stats_presentation" />
                     <TextView
-                        android:id="@+id/textView3"
+                        android:id="@+id/textView8"
                         android:layout_width="150dp"
                         android:layout_height="59dp"
                         android:layout_marginStart="10dp"
                         android:textSize="18sp"
                         android:text="@string/Contagiados_arg" />
                     <TextView
-                        android:id="@+id/textView4"
+                        android:id="@+id/textView9"
                         android:layout_width="200dp"
                         android:layout_height="59dp"
                         android:layout_marginStart="10dp"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         android:text="@string/Recuperados_arg" />
                     <TextView
-                        android:id="@+id/textView5"
+                        android:id="@+id/textView10"
                         android:layout_width="200dp"
                         android:layout_height="59dp"
                         android:layout_marginStart="10dp"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         android:text="@string/Fallecidos_arg" />
                 </LinearLayout>
                 <LinearLayout
@@ -121,38 +121,37 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="130dp"
                         android:layout_marginTop="100dp"
-                        android:layout_marginEnd="150dp"
-                        android:id="@+id/textView3"
+                        android:layout_marginEnd="100dp"
+                        android:id="@+id/textView11"
                         android:textSize="24sp"
                         android:text="@string/tab_3_content"/>
                     <TextView
-                        android:id="@+id/textView2"
+                        android:id="@+id/textView12"
                         android:layout_width="200dp"
                         android:layout_height="59dp"
                         android:layout_marginStart="10dp"
                         android:textSize="20sp"
                         android:text="@string/stats_presentation" />
-
                     <TextView
-                        android:id="@+id/textView3"
+                        android:id="@+id/textView13"
                         android:layout_width="150dp"
                         android:layout_height="59dp"
                         android:layout_marginStart="10dp"
                         android:textSize="18sp"
                         android:text="@string/Contagiados_mundo" />
                     <TextView
-                        android:id="@+id/textView4"
+                        android:id="@+id/textView14"
                         android:layout_width="200dp"
                         android:layout_height="59dp"
                         android:layout_marginStart="10dp"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         android:text="@string/Recuperados_mundo" />
                     <TextView
-                        android:id="@+id/textView5"
+                        android:id="@+id/textView15"
                         android:layout_width="200dp"
                         android:layout_height="59dp"
                         android:layout_marginStart="10dp"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         android:text="@string/Fallecidos_mundo" />
                 </LinearLayout>
             </FrameLayout>
