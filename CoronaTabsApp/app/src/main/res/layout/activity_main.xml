@@ -21,8 +21,8 @@
 
     <TextView
         android:id="@+id/TV_Welcome_presentation"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="354dp"
+        android:layout_height="139dp"
         android:layout_marginStart="130dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="130dp"
@@ -52,7 +52,9 @@
         android:layout_marginStart="174dp"
         android:layout_marginTop="180dp"
         android:layout_marginEnd="179dp"
+        android:layout_marginBottom="51dp"
         android:text="@string/button_title"
+        app:layout_constraintBottom_toTopOf="@+id/button_welcomeGo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText2" />
@@ -65,6 +67,7 @@
         android:layout_marginTop="62dp"
         android:layout_marginEnd="162dp"
         android:layout_marginBottom="118dp"
+        android:onClick="onWelcomeGoClick"
         android:text="@string/button_name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

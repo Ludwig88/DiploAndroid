@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">App con Menu</string>
+    <string name="preferences">Preferencias</string>
+    <string name="about">Acerca de ..</string>
+    <string name="acerca_de_esta_app">Acerca de esta aplicacion</string>
+    <string name="goto_punt">ver puntuaciones</string>
+    <string name="puntuaciones">Puntuaciones</string>
+    <string name="no_hay_puntuaciones">No punct</string>
+    <string name="todo">Todo</string>
+    <string name="textview">TextView</string>
+</resources>

@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Intenciones</string>
+    <string name="btnWeb">Abrir Pagina Web</string>
+    <string name="btnPhone">Llamar a Numero</string>
+    <string name="btnMap">Abrir Mapa</string>
+    <string name="btnPhoto">Foto</string>
+    <string name="btnEmail">I MEIL</string>
+    <string name="btnViewPhotos">Ver lista de PHotos</string>
+</resources>
