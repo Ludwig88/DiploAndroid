@@ -18,7 +18,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onWelcomeGoClick(View view) {
+<<<<<<< HEAD
         Intent intetNavigation = new Intent(this, tabActivity.class);
         startActivity(intetNavigation);
+=======
+        Intent intentNavigation = new Intent(this, Tabs.class);
+        startActivity(intentNavigation);
+>>>>>>> acd46a472b57e0ae9b734acb2dfbd0b8362b0795
     }
 }

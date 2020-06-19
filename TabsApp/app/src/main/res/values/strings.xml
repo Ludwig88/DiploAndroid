@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">TabsApp</string>
+    <string name="title_activity_tabbed2">TabbedActivity2</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 1</string>
+    <string name="contenido_del_tab_1">Tab 1</string>
+    <string name="contenido_del_tab_2">Tab 2</string>
+    <string name="contenido_del_tab_3">Tab 3</string>
+</resources>
