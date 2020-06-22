@@ -11,6 +11,13 @@ import android.widget.TextView;
 
 public class Tabs extends AppCompatActivity {
 
+    public enum Fields {
+        CONTAGIADOS,
+        RECUPERADOS,
+        FALLECIDOS,
+        EMPTY
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,6 +26,7 @@ public class Tabs extends AppCompatActivity {
         TabHost tabHost = findViewById(android.R.id.tabhost);
         tabHost.setup();
 
+        //Tab creation
         TabHost.TabSpec spec = tabHost.newTabSpec("Tab_1");
         spec.setContent(R.id.tab1);
         spec.setIndicator("Cordoba");
@@ -45,59 +53,69 @@ public class Tabs extends AppCompatActivity {
         });
     }
 
-    public void UpdateValues(String s){
+    private String GetValueByTab(Fields Field, String Tab){
+        switch (Tab){
+            case "Tab_1":
+                switch (Field){
+                    case CONTAGIADOS:
+                        return "459";
+                    case RECUPERADOS:
+                        return "93";
+                    case FALLECIDOS:
+                        return "31";
+                }
+                break;
+            case "Tab_2":
+                switch (Field){
+                    case CONTAGIADOS:
+                        return "13933";
+                    case RECUPERADOS:
+                        return "4349";
+                    case FALLECIDOS:
+                        return "500";
+                }
+                break;
+            case "Tab_3":
+                switch (Field){
+                    case CONTAGIADOS:
+                        return "5707193";
+                    case RECUPERADOS:
+                        return "2361312";
+                    case FALLECIDOS:
+                        return "355956";
+                }
+                break;
+        }
+        return "";
+    }
 
-        int number_contagiados=0, number_recuperados=0, number_muertos=0;
+    public void UpdateValues(String s){
         TextView et_contagiados = null,et_recuperados= null,et_fallecidos= null;
 
         switch (s){
             case "Tab_1":
-                number_contagiados=459;
-                number_recuperados=93;
-                number_muertos=31;
-                et_contagiados = findViewById(R.id.textView3);
-                et_recuperados = findViewById(R.id.textView4);
-                et_fallecidos = findViewById(R.id.textView5);
+                et_contagiados = findViewById(R.id.contagiados1);
+                et_recuperados = findViewById(R.id.recuperados1);
+                et_fallecidos = findViewById(R.id.muertos1);
                 break;
             case "Tab_2":
-                number_contagiados=13933;
-                number_recuperados=4349;
-                number_muertos=500;
-                et_contagiados = findViewById(R.id.textView8);
-                et_recuperados = findViewById(R.id.textView9);
-                et_fallecidos = findViewById(R.id.textView10);
+                et_contagiados = findViewById(R.id.contagiados2);
+                et_recuperados = findViewById(R.id.recuperados2);
+                et_fallecidos = findViewById(R.id.muertos2);
                 break;
             case "Tab_3":
-                number_contagiados=5707193;
-                number_recuperados=2361312;
-                number_muertos=355956;
-                et_contagiados = findViewById(R.id.textView13);
-                et_recuperados = findViewById(R.id.textView14);
-                et_fallecidos = findViewById(R.id.textView15);
+                et_contagiados = findViewById(R.id.contagiados3);
+                et_recuperados = findViewById(R.id.recuperados3);
+                et_fallecidos = findViewById(R.id.muertos3);
                 break;
             default:
                 break;
         }
 
-        String ed_texto = et_contagiados.getText().toString();
-        if (!ed_texto.matches(".*\\d.*"))
-        {
-            ed_texto = ed_texto + number_contagiados;
-            et_contagiados.setText(ed_texto);
-        }
+        et_contagiados.setText(GetValueByTab(Fields.CONTAGIADOS, s));
+        et_recuperados.setText(GetValueByTab(Fields.RECUPERADOS, s));
+        et_fallecidos.setText(GetValueByTab(Fields.FALLECIDOS, s));
 
-        String texto_rec = et_recuperados.getText().toString();
-        if (!texto_rec.matches(".*\\d.*"))
-        {
-            texto_rec = texto_rec + number_recuperados;
-            et_recuperados.setText(texto_rec);
-        }
-
-        String texto_fall = et_fallecidos.getText().toString();
-        if (!texto_fall.matches(".*\\d.*"))
-        {
-            texto_fall = texto_fall + number_muertos;
-            et_fallecidos.setText(texto_fall);
-        }
     }
+
 }

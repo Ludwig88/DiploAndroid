@@ -47,21 +47,21 @@
                         android:textSize="20sp"
                         android:text="@string/stats_presentation" />
                     <TextView
-                        android:id="@+id/textView3"
+                        android:id="@+id/contagiados1"
                         android:layout_width="150dp"
                         android:layout_height="59dp"
                         android:layout_marginStart="10dp"
                         android:textSize="18sp"
                         android:text="@string/Contagiados_cba" />
                     <TextView
-                        android:id="@+id/textView4"
+                        android:id="@+id/recuperados1"
                         android:layout_width="200dp"
                         android:layout_height="59dp"
                         android:layout_marginStart="10dp"
                         android:textSize="18sp"
                         android:text="@string/Recuperados_cba" />
                     <TextView
-                        android:id="@+id/textView5"
+                        android:id="@+id/muertos1"
                         android:layout_width="200dp"
                         android:layout_height="59dp"
                         android:layout_marginStart="10dp"
@@ -90,21 +90,21 @@
                         android:textSize="20sp"
                         android:text="@string/stats_presentation" />
                     <TextView
-                        android:id="@+id/textView8"
+                        android:id="@+id/contagiados2"
                         android:layout_width="150dp"
                         android:layout_height="59dp"
                         android:layout_marginStart="10dp"
                         android:textSize="18sp"
                         android:text="@string/Contagiados_arg" />
                     <TextView
-                        android:id="@+id/textView9"
+                        android:id="@+id/recuperados2"
                         android:layout_width="200dp"
                         android:layout_height="59dp"
                         android:layout_marginStart="10dp"
                         android:textSize="18sp"
                         android:text="@string/Recuperados_arg" />
                     <TextView
-                        android:id="@+id/textView10"
+                        android:id="@+id/muertos2"
                         android:layout_width="200dp"
                         android:layout_height="59dp"
                         android:layout_marginStart="10dp"
@@ -133,21 +133,21 @@
                         android:textSize="20sp"
                         android:text="@string/stats_presentation" />
                     <TextView
-                        android:id="@+id/textView13"
+                        android:id="@+id/contagiados3"
                         android:layout_width="150dp"
                         android:layout_height="59dp"
                         android:layout_marginStart="10dp"
                         android:textSize="18sp"
                         android:text="@string/Contagiados_mundo" />
                     <TextView
-                        android:id="@+id/textView14"
+                        android:id="@+id/recuperados3"
                         android:layout_width="200dp"
                         android:layout_height="59dp"
                         android:layout_marginStart="10dp"
                         android:textSize="18sp"
                         android:text="@string/Recuperados_mundo" />
                     <TextView
-                        android:id="@+id/textView15"
+                        android:id="@+id/muertos3"
                         android:layout_width="200dp"
                         android:layout_height="59dp"
                         android:layout_marginStart="10dp"
