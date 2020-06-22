@@ -3,11 +3,11 @@
     <string name="welcome_title">Estadísticas COVID-19</string>
     <string name="welcome_description">En la siguiente aplicacion se pueden analizar los valores diarios de contagiados, recuperados y muertos debido al COVID-19 tanto en la provincia de córdoba, como en Argentina y en el mundo</string>
     <string name="date_title">Fecha</string>
-    <string name="date_description">28/05/2020</string>
+    <string name="date_description">"28/05/2020"</string>
+    <string name="stats_presentation">"Valores para el día: "</string>
     <string name="button_name">Ver Valores</string>
     <string name="button_title">Navegar Hacia Estadisticas</string>
     <string name="tab_1_content">Cordoba</string>
-    <string name="stats_presentation">"Valores para el día: 28/05/2020"</string>
     <string name="Contagiados_cba">"Contagiados: "</string>
     <string name="Recuperados_cba">"Recuperados: "</string>
     <string name="Fallecidos_cba">"Fallecidos: "</string>

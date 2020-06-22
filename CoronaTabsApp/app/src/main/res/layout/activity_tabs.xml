@@ -39,7 +39,7 @@
                         android:text="@string/tab_1_content"
                         android:textSize="24sp" />
                     <TextView
-                        android:id="@+id/textView2"
+                        android:id="@+id/textViewPresent1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -83,7 +83,7 @@
                         android:textSize="24sp"
                         android:text="@string/tab_2_content"/>
                     <TextView
-                        android:id="@+id/textView7"
+                        android:id="@+id/textViewPresent2"
                         android:layout_width="200dp"
                         android:layout_height="59dp"
                         android:layout_marginStart="10dp"
@@ -126,7 +126,7 @@
                         android:textSize="24sp"
                         android:text="@string/tab_3_content"/>
                     <TextView
-                        android:id="@+id/textView12"
+                        android:id="@+id/textViewPresent3"
                         android:layout_width="200dp"
                         android:layout_height="59dp"
                         android:layout_marginStart="10dp"

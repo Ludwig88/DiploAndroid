@@ -2,6 +2,7 @@ package com.example.covidnumbersapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.Editable;
 import android.util.Log;
@@ -18,6 +19,7 @@ public class Tabs extends AppCompatActivity {
         EMPTY
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,16 +32,25 @@ public class Tabs extends AppCompatActivity {
         TabHost.TabSpec spec = tabHost.newTabSpec("Tab_1");
         spec.setContent(R.id.tab1);
         spec.setIndicator("Cordoba");
+        TextView present = findViewById(R.id.textViewPresent1); //stats_presentation
+        String title_present = getResources().getString(R.string.stats_presentation);
+        //TODO: make it a variable and send it from the other activity
+        String value_fecha = getResources().getString(R.string.date_description);
+        present.setText( title_present + value_fecha);
         tabHost.addTab(spec);
 
         spec = tabHost.newTabSpec("Tab_2");
         spec.setContent(R.id.tab2);
         spec.setIndicator("Argentina");
+        TextView present2 = findViewById(R.id.textViewPresent2); //stats_presentation
+        present2.setText( title_present + value_fecha);
         tabHost.addTab(spec);
 
         spec = tabHost.newTabSpec("Tab_3");
         spec.setContent(R.id.tab3);
         spec.setIndicator("Mundo");
+        TextView present3 = findViewById(R.id.textViewPresent3); //stats_presentation
+        present3.setText( title_present + value_fecha);
         tabHost.addTab(spec);
 
         tabHost.setCurrentTab(0);
@@ -92,6 +103,8 @@ public class Tabs extends AppCompatActivity {
     public void UpdateValues(String s){
         TextView et_contagiados = null,et_recuperados= null,et_fallecidos= null;
 
+        //TODO: make ids with concatenation, Field + tab_number
+        //                              recuperados2
         switch (s){
             case "Tab_1":
                 et_contagiados = findViewById(R.id.contagiados1);
