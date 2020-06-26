@@ -14,8 +14,8 @@ public class Puntuaciones extends ListActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.puntuaciones);
-        //setListAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.puntuaciones_arr)));
-        setListAdapter(new PlanetasAdapter(this, PlanetasObject.getList()));
+        setListAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.puntuaciones_arr)));
+        //setListAdapter(new PlanetasAdapter(this, PlanetasObject.getList()));
     }
 
     @Override
