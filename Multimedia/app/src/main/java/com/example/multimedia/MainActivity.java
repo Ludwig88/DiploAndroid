@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
         videoPath = "http://personales.gan.upv.es/~jtomas/video.3gp";
         editText.setText(videoPath);
 
-        bPlay = findViewById(R.id.start);
+        bPlay = findViewById(R.id.play);
         bPause = findViewById(R.id.pause);
         bStop = findViewById(R.id.stop);
         bLog = findViewById(R.id.log);
