@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="409dp"
+        android:layout_height="730dp"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteX="2dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <Button
+            android:id="@+id/BtnGrabar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Grabar" />
+
+        <Button
+            android:id="@+id/BtnStopRec"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Detener Rec" />
+
+        <Button
+            android:id="@+id/BtnPlayRec"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Reproducir Rec" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="417dp"
+        android:layout_height="743dp"
+        android:layout_marginTop="50dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="@+id/linearLayout"
+        tools:layout_editor_absoluteX="-4dp">
+
+        <Button
+            android:id="@+id/BtnPlay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Play" />
+
+        <Button
+            android:id="@+id/BtnStop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Stop" />
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="416dp"
+        android:layout_height="213dp"
+        android:layout_marginTop="50dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="@+id/linearLayout3"
+        tools:layout_editor_absoluteX="-4dp">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Ratio" />
+
+        <SeekBar
+            android:id="@+id/seekBar"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:max="20"
+            android:progress="10" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
