@@ -6,8 +6,11 @@ import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.location.Criteria;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ViewAnimator;
@@ -19,12 +22,15 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.ButtCap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+import java.util.List;
+
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMapClickListener {
 
     private GoogleMap mMap;
     private FusedLocationProviderClient mFuseLocationProviderClient;
@@ -81,7 +87,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             {
                 return;
             }
-            mFuseLocationProviderClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>(){
+            mFuseLocationProviderClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>()
+            {
                 @Override
                 public void onSuccess(Location location)
                 {
@@ -122,6 +129,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         mMap.setMyLocationEnabled(true);
 
+        mMap.setTrafficEnabled(true);
+        mMap.setBuildingsEnabled(true);
+        //mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+        mMap.getUiSettings().setMapToolbarEnabled(true);
+        mMap.getUiSettings().setZoomControlsEnabled(true);
+        mMap.getUiSettings().setCompassEnabled(true);
+        mMap.getUiSettings().setZoomGesturesEnabled(true);
+        mMap.setOnMapClickListener(this);
+
         mFuseLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         // Add a marker in Sydney and move the camera
@@ -131,5 +147,46 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.addMarker(new MarkerOptions().position(cordoba).title("Marcador en cordoba?"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(cordoba));
         //float maxZoom = mMap.getMaxZoomLevel();
+
+        LocationManager manager = (LocationManager)getSystemService(LOCATION_SERVICE);
+        List<String> proveedores = manager.getAllProviders();
+        for (String proveedor : proveedores) {
+            Log.i("proveedores", "onMapReady: " + proveedor);
+        }
+        Criteria crt = new Criteria();
+        crt.setCostAllowed(false);
+        crt.setAltitudeRequired(false);
+        crt.setAccuracy(Criteria.ACCURACY_FINE);
+        String proveedor = manager.getBestProvider(crt, false);
+        Location localizacion = manager.getLastKnownLocation(proveedor);
+        if (localizacion != null) {
+            Log.i("localizacion", "onMapReady: " + localizacion.toString());
+        } else {
+            Log.i("localizacion", "onMapReady: not found");
+        }
+    }
+
+    @Override
+    public void onMapClick(LatLng latLng)
+    {
+        mMap.addMarker(
+                new MarkerOptions()
+                        .position(latLng)
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
+                        .title("Marcador en " + latLng.latitude + " - " + latLng.longitude)
+                        .snippet("Mas información sobe este marcador.")
+                        .alpha(0.6f)
+                        .anchor(0.5f, 0.5f)
+                        .draggable(true)
+                        .infoWindowAnchor(0.5f, 0.5f)
+        );
+    }
+
+    public void onIrArg(View view)
+    {
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+                cordoba,
+                16
+        ));
     }
 }

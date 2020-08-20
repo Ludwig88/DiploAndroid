@@ -10,8 +10,7 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MapsActivity"
-        tools:layout="@layout/activity_maps" />
+        tools:context=".MapsActivity" />
 
     <Button
         android:id="@+id/btnMyPos"
@@ -32,6 +31,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="130dp"
         android:layout_marginBottom="37dp"
+        android:onClick="onIrArg"
         android:text="@string/ir_a_argentina" />
 
     <Button
@@ -42,5 +42,6 @@
         android:layout_marginStart="-6dp"
         android:layout_marginEnd="0dp"
         android:layout_marginBottom="35dp"
+        android:onClick="onMyPos"
         android:text="@string/marcador" />
 </RelativeLayout>
