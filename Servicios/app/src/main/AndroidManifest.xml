@@ -19,7 +19,10 @@
 
         <service android:name=".ServicioMusica"
             android:enabled="true"
-            android:exported="true"/>
+            android:exported="true">
+        <intent-filter>
+        <action android:name="@strings/SERVICE_ACTION"/>
+        </intent-filter></service>
     </application>
 
 </manifest>

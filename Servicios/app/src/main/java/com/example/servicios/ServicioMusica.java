@@ -4,6 +4,8 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.Service;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.media.AudioAttributes;
 import android.media.MediaPlayer;
@@ -78,6 +80,13 @@ public class ServicioMusica extends Service {
             Notification notification = notbuilder.build();
             notMan.notify(ID_NOTIFICAION_MUSICA, notification);
         }
+        else {
+            notbuilder = new Notification.Builder(this, CHANNEL_ID)
+                    .setContentText("Servicio de musica")
+                    .setContentText("se ñldksañldksañldkas")
+                    .setSubText("musica")
+                    .setSmallIcon(android.R.drawable.presence_audio_online);
+        }
 
         return START_STICKY;
     }
@@ -85,7 +94,15 @@ public class ServicioMusica extends Service {
     @Override
     public void onDestroy() {
         reproductor.stop();
+        reproductor.release();
         Toast.makeText(this, "Servicio Destroied", Toast.LENGTH_LONG).show();
         notMan.cancel(ID_NOTIFICAION_MUSICA);
     }
+
+    public BroadcastReceiver stopServiceReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            stopSelf();
+        }
+    };
 }

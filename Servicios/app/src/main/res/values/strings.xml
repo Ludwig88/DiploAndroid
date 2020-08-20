@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Servicios</string>
+    <string name="SERVICE_ACTION">"com.example.servicios.STOP_ACTION"</string>
 </resources>
