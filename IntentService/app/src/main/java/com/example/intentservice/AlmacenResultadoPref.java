@@ -57,7 +57,7 @@ public class AlmacenResultadoPref implements AlmacenarResultados {
     }
 
     @Override
-    public void EliminarResultados(double num, double resultado, String nombre) {
+    public void EliminarResultados(double num, double resultado) {
         //fuera de scope
     }
 }

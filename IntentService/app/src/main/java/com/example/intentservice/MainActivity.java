@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -24,14 +25,27 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //entrada = findViewById(R.)
-        //entrada = findViewById(R.)
+        entrada = findViewById(R.id.entrada);
+        salida = findViewById(R.id.salida);
 
+        //registrando el broadcast
+        IntentFilter filtro = new IntentFilter(ReceptorOperacion.ACTION_RECEPTOR);
+        filtro.addCategory(Intent.CATEGORY_DEFAULT);
+        ReceptorOperacion receptorOperacion = new ReceptorOperacion();
+        registerReceiver(receptorOperacion, filtro);
+
+        /*Defino el almacen con el tipo que yo haya implementado*/
+        //mALmacen = new AlmacenResultadoPref(this);
+        mALmacen = new AlmacenResultadosSQLLite(this, 1);
     }
 
     public void calcularOperacion(View view)
     {
-
+        double n = Double.parseDouble(entrada.getText().toString());
+        //salida
+        Intent intent = new Intent(this, IntentServiceOperacion.class);
+        intent.putExtra("numero", n);
+        startService(intent);
     }
 
     public class ReceptorOperacion extends BroadcastReceiver{
@@ -41,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             Double res = intent.getDoubleExtra("resultado", 0);
             Double num = intent.getDoubleExtra("numero", 0);
-            salida.append("EL cuadrado de " + num + " es " + res);
+            salida.append("EL cuadrado de " + num + " es " + res + "\n");
             //almacena generico
             mALmacen.GuardarResultados(num, res, "El cuadrado de");
         }
@@ -56,9 +70,13 @@ public class MainActivity extends AppCompatActivity {
             for (Resultado itemResultado : resultados)
             {
                 salida.append(
-                        itemResultado.getNombre()
+                        itemResultado.toString() //getNombre()
                 );
             }
+        }
+        else
+        {
+            salida.append("No hay resultados");
         }
     }
 }

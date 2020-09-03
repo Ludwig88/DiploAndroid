@@ -58,16 +58,13 @@ public class IntentServiceOperacion extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         if (intent != null) {
-            final String action = intent.getAction();
-            if (ACTION_FOO.equals(action)) {
-                final String param1 = intent.getStringExtra(EXTRA_PARAM1);
-                final String param2 = intent.getStringExtra(EXTRA_PARAM2);
-                handleActionFoo(param1, param2);
-            } else if (ACTION_BAZ.equals(action)) {
-                final String param1 = intent.getStringExtra(EXTRA_PARAM1);
-                final String param2 = intent.getStringExtra(EXTRA_PARAM2);
-                handleActionBaz(param1, param2);
-            }
+            double n = intent.getExtras().getDouble("numero");
+            double r = (n*n);
+            Intent intentBroadcast = new Intent(MainActivity.ReceptorOperacion.ACTION_RECEPTOR);
+            intentBroadcast.addCategory(Intent.CATEGORY_DEFAULT);
+            intentBroadcast.putExtra("resultado", r);
+            intentBroadcast.putExtra("numero", n);
+            sendBroadcast(intentBroadcast);
         }
     }
 
