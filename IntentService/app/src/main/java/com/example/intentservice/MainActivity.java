@@ -2,10 +2,12 @@ package com.example.intentservice;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -28,6 +30,13 @@ public class MainActivity extends AppCompatActivity {
         entrada = findViewById(R.id.entrada);
         salida = findViewById(R.id.salida);
 
+        if(checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+        || checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+            requestPermissions(new String[] {
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.READ_EXTERNAL_STORAGE }, 1234 );
+        }
+
         //registrando el broadcast
         IntentFilter filtro = new IntentFilter(ReceptorOperacion.ACTION_RECEPTOR);
         filtro.addCategory(Intent.CATEGORY_DEFAULT);
@@ -35,8 +44,11 @@ public class MainActivity extends AppCompatActivity {
         registerReceiver(receptorOperacion, filtro);
 
         /*Defino el almacen con el tipo que yo haya implementado*/
+        //TODO: resultados pref is not working!
         //mALmacen = new AlmacenResultadoPref(this);
-        mALmacen = new AlmacenResultadosSQLLite(this, 1);
+        //mALmacen = new AlmacenResultadosSQLLite(this, 1);
+        //mALmacen = new AlmacenResultadosFicheroInterno(this);
+        mALmacen = new AlmacenResultadosFicheroExterno(this);
     }
 
     public void calcularOperacion(View view)
