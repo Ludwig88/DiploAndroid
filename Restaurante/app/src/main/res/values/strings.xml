@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Restaurante</string>
+    <string name="mozo_title">Mozo</string>
+    <string name="cocina_title">Cocina</string>
+    <string name="mozo_name">Mozo</string>
+    <string name="mesa_title">Mesa</string>
+</resources>
