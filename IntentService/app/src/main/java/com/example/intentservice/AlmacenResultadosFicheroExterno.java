@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class AlmacenResultadosFicheroExterno implements AlmacenarResultados {
 
     private Context context;
+    //On android 9 y newer this wont work, chenge to String destPath = mContext.getExternalFilesDir(null).getAbsolutePath();
     private static final String archivo_nombre = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "resultados.text";
 
     public AlmacenResultadosFicheroExterno(Context context)

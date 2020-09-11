@@ -48,7 +48,8 @@ public class MainActivity extends AppCompatActivity {
         //mALmacen = new AlmacenResultadoPref(this);
         //mALmacen = new AlmacenResultadosSQLLite(this, 1);
         //mALmacen = new AlmacenResultadosFicheroInterno(this);
-        mALmacen = new AlmacenResultadosFicheroExterno(this);
+        //mALmacen = new AlmacenResultadosFicheroExterno(this);
+        //mALmacen = new AlmacenResultadosConJson(this);
     }
 
     public void calcularOperacion(View view)
