@@ -9,10 +9,13 @@ import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
+    public AlmacenPedidos m_almacenPedidos;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        m_almacenPedidos = new AlmacenPedidos(this,1);
     }
 
     public void NavigateToCocina(View view)
