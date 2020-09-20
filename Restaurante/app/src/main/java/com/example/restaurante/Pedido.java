@@ -17,17 +17,19 @@ public class Pedido {
     private int m_iMesaNum;
     private String m_sItem;
     private float m_fPrecio;
-    private int m_EestadoPedido;
-    //private Estado m_EestadoPedido;
+    private int m_iestadoPedido;
+    private int m_cantidadItem;
+    private Estado m_EestadoPedido = Estado.DESCONOCIDO;
 
-    public Pedido(Integer uniqID, Integer pedID, String mozo, int mesaNum, String item, float precio, int estadoPedido){
+    public Pedido(Integer uniqID, Integer pedID, String mozo, int mesaNum, String item, float precio, int estadoPedido, int cantidad){
         m_duniqueID = uniqID;
         m_iPedidoID = pedID;
         m_sMozo = mozo;
         m_iMesaNum = mesaNum;
         m_sItem = item;
         m_fPrecio = precio;
-        m_EestadoPedido = estadoPedido;
+        m_iestadoPedido = estadoPedido;
+        m_cantidadItem = cantidad;
     }
 
     public Integer getuniqueID(){
@@ -55,12 +57,12 @@ public class Pedido {
     }
 
     public int getEstadoPedido(){
-        return m_EestadoPedido;
+        return m_iestadoPedido;
     }
 
     public Estado getEstadoPedidoEnum(){
         Estado actual;
-        switch (m_EestadoPedido){
+        switch (m_iestadoPedido){
             case 0:
                 actual = Estado.EN_ESPERA;
                 break;
@@ -80,9 +82,12 @@ public class Pedido {
         return actual;
     }
 
+    public int getCantidadItem(){
+        return m_cantidadItem;
+    }
     @NonNull
     public String toString(){
-        return "Pedido[" + m_duniqueID + "|" + m_iPedidoID + "] - Mozo " + m_sMozo + "- Mesa " + m_iMesaNum + " Estado " + m_EestadoPedido + "\n";
+        return "Pedido[" + m_duniqueID + "|" + m_iPedidoID + "] - Mozo " + m_sMozo + "- Mesa " + m_iMesaNum + " Estado " + m_iestadoPedido + "\n";
     }
 
 }

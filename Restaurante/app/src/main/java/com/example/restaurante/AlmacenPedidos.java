@@ -25,7 +25,8 @@ public class AlmacenPedidos extends SQLiteOpenHelper  {
                         "mesaNum INTEGER," +
                         "item TEXT," +
                         "precio DOUBLE," + //CHEQUEAR!
-                        "estado INTEGER)"
+                        "estado INTEGER," +
+                        "cantidad INTEGER)"
         );
     }
 
@@ -42,24 +43,24 @@ public class AlmacenPedidos extends SQLiteOpenHelper  {
         SQLiteDatabase db = getReadableDatabase();
         ArrayList<Pedido> pedidos;
         pedidos = new ArrayList<>();
-        try (Cursor cursor = db.rawQuery("SELECT _id, pedidoNum, mozo, mesaNum, item, precio, estado FROM pedidos ORDER BY pedidoNum DESC", null)) {
+        try (Cursor cursor = db.rawQuery("SELECT _id, pedidoNum, mozo, mesaNum, item, precio, estado, cantidad FROM pedidos ORDER BY pedidoNum DESC", null)) {
             while (cursor.moveToNext()) {
                 pedidos.add(new Pedido(cursor.getInt(0), cursor.getInt(1),
                         cursor.getString(2), cursor.getInt(3),
-                        cursor.getString(4), cursor.getFloat(5), cursor.getInt(6)));
+                        cursor.getString(4), cursor.getFloat(5), cursor.getInt(6), cursor.getInt(7)));
             }
             cursor.close();
         }catch (Exception e){
-            Log.e("COCINA","error: " + e.getMessage());
+            Log.e("DB_PEDIDOS","error: " + e.getMessage());
         }
         db.close();
         return pedidos;
     }
 
-    public void almacenarPedidos(Integer pedID, String mozo, int mesaNum, String item, float precio, int estadoPedido) {
+    public void almacenarPedidos(Integer pedID, String mozo, int mesaNum, String item, float precio, int estadoPedido, int cantidad) {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("INSERT INTO pedidos VALUES (null, " + pedID + ",'" + mozo + "'," + mesaNum +
-                ", '"+ item + "', " + precio + ", " + estadoPedido + " )");
+                ", '"+ item + "', " + precio + ", " + estadoPedido + ", " + cantidad + " )");
         db.close();
     }
 

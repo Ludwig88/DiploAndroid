@@ -17,7 +17,8 @@
             android:id="@+id/imageView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_launcher_foreground" />
+            app:srcCompat="@drawable/ic_launcher_foreground"
+            android:contentDescription="TODO" />
 
         <TextView
             android:id="@+id/textViewMesaTitle"
@@ -31,7 +32,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="2" />
+            android:text="2"
+            android:importantForAutofill="no" />
 
         <TextView
             android:id="@+id/textMozoTitle"
@@ -46,6 +48,16 @@
             android:ems="10"
             android:inputType="textPersonName"
             android:text="MozoNombre" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@android:id/list"
+                android:drawSelectorOnTop="false"/>
+        </FrameLayout>
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -25,6 +25,29 @@ public class AlmacenStock extends SQLiteOpenHelper  {
         );
     }
 
+    public void populateDB()
+    {
+        if(!dbHasItems())
+        {
+            //TODO: use X qtty. random values and items from a file
+            almacenarPedidos("coca-cola",125.9f);
+            almacenarPedidos("Pepsi",120.7f);
+            almacenarPedidos("Fanta",115.6f);
+            almacenarPedidos("Fernet",300.1f);
+            almacenarPedidos("Agua Mineral",100.2f);
+            almacenarPedidos("Pancho",225.6f);
+            almacenarPedidos("Vino Tinto",325.0f);
+            almacenarPedidos("Choripan",200.0f);
+            almacenarPedidos("Lomito",350.5f);
+            almacenarPedidos("Fideos",300.8f);
+            almacenarPedidos("Lasagna",350.9f);
+            almacenarPedidos("Postre",150.1f);
+            almacenarPedidos("Café",99.9f);
+            almacenarPedidos("Asado",1560.1f);
+            almacenarPedidos("Ensalada",230.0f);
+        }
+    }
+
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         if (i != i1) {
@@ -34,18 +57,35 @@ public class AlmacenStock extends SQLiteOpenHelper  {
         }
     }
 
-    public ArrayList<?> listaPedidos() {
+    public boolean dbHasItems()
+    {
+        Integer quantityOfElements;
+        try (SQLiteDatabase db = getReadableDatabase()) {
+            quantityOfElements = 0;
+            try (Cursor cursor = db.rawQuery("SELECT COUNT(item) FROM stock", null)) {
+                while (cursor.moveToNext()) {
+                    quantityOfElements = cursor.getInt(0);
+                }
+                cursor.close();
+            } catch (Exception e) {
+                Log.e("DB_STOCK", "error: " + e.getMessage());
+            }
+            db.close();
+        }
+        return quantityOfElements > 1;
+    }
+
+    public ArrayList<?> listaStockItems() {
         SQLiteDatabase db = getReadableDatabase();
         ArrayList<StockItem> stockItems;
         stockItems = new ArrayList<>();
-        //TODO: Agregar DIstinct!
-        try (Cursor cursor = db.rawQuery("SELECT _id, item, precio FROM stock", null)) {
+        try (Cursor cursor = db.rawQuery("SELECT DISTINCT item, precio FROM stock", null)) {
             while (cursor.moveToNext()) {
-                stockItems.add(new StockItem( cursor.getString(1), cursor.getFloat(2)));
+                stockItems.add(new StockItem( cursor.getString(0), cursor.getFloat(1), 0));
             }
             cursor.close();
         }catch (Exception e){
-            Log.e("COCINA","error: " + e.getMessage());
+            Log.e("DB_STOCK","error: " + e.getMessage());
         }
         db.close();
         return stockItems;
