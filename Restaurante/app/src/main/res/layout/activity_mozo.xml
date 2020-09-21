@@ -6,40 +6,63 @@
     android:layout_height="match_parent"
     tools:context=".Mozo">
 
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="endOrder"
+        android:text="@string/finalizar_pedido_button_text"
+        android:textSize="24sp"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        tools:layout_editor_absoluteX="16dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:text="@string/costo_total_text"
+        android:textSize="24sp"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        tools:layout_editor_absoluteX="4dp" />
+
     <LinearLayout
-        android:layout_width="409dp"
-        android:layout_height="729dp"
+        android:id="@+id/linearLayout"
+        android:layout_width="406dp"
+        android:layout_height="630dp"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteX="4dp"
         tools:layout_editor_absoluteY="1dp">
 
         <ImageView
             android:id="@+id/imageView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_launcher_foreground"
-            android:contentDescription="TODO" />
+            android:contentDescription="TODO"
+            app:srcCompat="@drawable/ic_launcher_foreground" />
 
         <TextView
             android:id="@+id/textViewMesaTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/mesa_title" />
+            android:text="@string/mesa_title"
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/editTextMesaVal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:importantForAutofill="no"
             android:inputType="textPersonName"
-            android:text="2"
-            android:importantForAutofill="no" />
+            android:text="2" />
 
         <TextView
             android:id="@+id/textMozoTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/mozo_name" />
+            android:text="@string/mozo_name"
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/editTextMozoVal"
@@ -52,11 +75,12 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <ListView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
                 android:id="@android:id/list"
-                android:drawSelectorOnTop="false"/>
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:drawSelectorOnTop="false" />
         </FrameLayout>
 
     </LinearLayout>

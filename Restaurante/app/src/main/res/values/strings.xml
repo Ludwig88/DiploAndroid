@@ -4,4 +4,6 @@
     <string name="cocina_title">Cocina</string>
     <string name="mozo_name">Mozo</string>
     <string name="mesa_title">Mesa</string>
+    <string name="finalizar_pedido_button_text">Finalizar Pedido</string>
+    <string name="costo_total_text">Costo Total:</string>
 </resources>

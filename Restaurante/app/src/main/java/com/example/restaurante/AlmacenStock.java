@@ -30,21 +30,21 @@ public class AlmacenStock extends SQLiteOpenHelper  {
         if(!dbHasItems())
         {
             //TODO: use X qtty. random values and items from a file
-            almacenarPedidos("coca-cola",125.9f);
-            almacenarPedidos("Pepsi",120.7f);
-            almacenarPedidos("Fanta",115.6f);
-            almacenarPedidos("Fernet",300.1f);
-            almacenarPedidos("Agua Mineral",100.2f);
-            almacenarPedidos("Pancho",225.6f);
-            almacenarPedidos("Vino Tinto",325.0f);
-            almacenarPedidos("Choripan",200.0f);
-            almacenarPedidos("Lomito",350.5f);
-            almacenarPedidos("Fideos",300.8f);
-            almacenarPedidos("Lasagna",350.9f);
-            almacenarPedidos("Postre",150.1f);
-            almacenarPedidos("Café",99.9f);
-            almacenarPedidos("Asado",1560.1f);
-            almacenarPedidos("Ensalada",230.0f);
+            almacenarPedidos("coca-cola",125.9f,0);
+            almacenarPedidos("Pepsi",120.7f,0);
+            almacenarPedidos("Fanta",115.6f,0);
+            almacenarPedidos("Fernet",300.1f,0);
+            almacenarPedidos("Agua Mineral",100.2f,0);
+            almacenarPedidos("Pancho",225.6f,0);
+            almacenarPedidos("Vino Tinto",325.0f,0);
+            almacenarPedidos("Choripan",200.0f,0);
+            almacenarPedidos("Lomito",350.5f,0);
+            almacenarPedidos("Fideos",300.8f,0);
+            almacenarPedidos("Lasagna",350.9f,0);
+            almacenarPedidos("Postre",150.1f,0);
+            almacenarPedidos("Café",99.9f,0);
+            almacenarPedidos("Asado",1560.1f,0);
+            almacenarPedidos("Ensalada",230.0f,0);
         }
     }
 
@@ -91,9 +91,15 @@ public class AlmacenStock extends SQLiteOpenHelper  {
         return stockItems;
     }
 
-    public void almacenarPedidos(String item, float precio) {
+    public void actualizarEstadoItem(String item, int estado) {
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("INSERT INTO stock VALUES (null, " + "'"+ item + "', " + precio + " )");
+        db.execSQL("UPDATE stock SET estado = " + estado + " WHERE item = " + item + " )");
+        db.close();
+    }
+
+    public void almacenarPedidos(String item, float precio, int estado) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("INSERT INTO stock VALUES (null, " + "'"+ item + "', " + precio + " , " + estado + " )");
         db.close();
     }
 

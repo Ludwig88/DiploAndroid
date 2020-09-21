@@ -25,13 +25,11 @@ public class StockItem {
         return m_sItem;
     }
 
-    public float getPrecio(){
-        return m_fPrecio;
-    }
+    public float getPrecio(){ return m_fPrecio; }
 
-    //public int getEstadoPedido(){
-    //    return m_EestadoPedido;
-    //}
+    public int getEstadoPedido(){ return m_EestadoPedido; }
+
+    public void setEstadoPedido(int estado){ m_EestadoPedido = estado; }
 
     @NonNull
     public String toString(){
