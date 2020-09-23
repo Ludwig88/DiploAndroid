@@ -36,11 +36,6 @@ public class StockItemAdapter extends BaseAdapter {
         return (long) 0.0;
     }
 
-    //@Override
-    //public String getItemId(int i) {
-    //    //FIXME: es esto correcto?
-    //    return m_pedidos.get(i).getItemName();
-    //}
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
@@ -49,7 +44,9 @@ public class StockItemAdapter extends BaseAdapter {
         TextView cantidadItem = view.findViewById(R.id.textQuantity);
         TextView precioItem = view.findViewById(R.id.textPrice);
         nombreItem.setText(((StockItem)getItem(i)).getItemName());
-        cantidadItem.setText("0");
+        int cantidad_int = ((StockItem)getItem(i)).getCantidad();
+        String cantidad_string = String.valueOf(cantidad_int);
+        cantidadItem.setText(cantidad_string);
         float precio = (float) ((StockItem)getItem(i)).getPrecio();
         precioItem.setText(String.valueOf(precio));
         //TODO: acording to order state must change background color

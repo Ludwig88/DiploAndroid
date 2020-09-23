@@ -58,15 +58,23 @@ public class AlmacenPedidos extends SQLiteOpenHelper  {
     }
 
     public void almacenarPedidos(Integer pedID, String mozo, int mesaNum, String item, float precio, int estadoPedido, int cantidad) {
-        SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("INSERT INTO pedidos VALUES (null, " + pedID + ",'" + mozo + "'," + mesaNum +
-                ", '"+ item + "', " + precio + ", " + estadoPedido + ", " + cantidad + " )");
-        db.close();
+        try (SQLiteDatabase db = getWritableDatabase()) {
+            db.execSQL("INSERT INTO pedidos VALUES (null, " + pedID + ",'" + mozo + "'," + mesaNum +
+                    ", '" + item + "', " + precio + ", " + estadoPedido + ", " + cantidad + " )");
+            db.close();
+        }
+        catch (Exception e){
+            Log.e("DB_PEDIDOS","error: " + e.getMessage());
+        }
     }
 
     public void eliminarPedidos(Integer pedID) {
-        SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("DELETE FROM pedidos WHERE pedidoNum = " + pedID + ")");
-        db.close();
+        try (SQLiteDatabase db = getWritableDatabase()) {
+            db.execSQL("DELETE FROM pedidos WHERE pedidoNum = " + pedID + ")");
+            db.close();
+        }
+        catch (Exception e){
+            Log.e("DB_PEDIDOS","error: " + e.getMessage());
+        }
     }
 }

@@ -11,16 +11,21 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 
 public class AlmacenStock extends SQLiteOpenHelper  {
+
+    static final String TABLE_NAME = "stock_i";
+
     public AlmacenStock(@Nullable Context context, int version) {
-        super(context, "StockRestaurant", null, version);
+        super(context, "StockItemsRestaurant", null, version);
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(
-                "CREATE TABLE stock " +
+                "CREATE TABLE " + TABLE_NAME + " " +
                         "(_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                         "item TEXT," +
+                        "estado INTEGER, " +
+                        "cantidad INTEGER, " +
                         "precio DOUBLE)"
         );
     }
@@ -30,21 +35,21 @@ public class AlmacenStock extends SQLiteOpenHelper  {
         if(!dbHasItems())
         {
             //TODO: use X qtty. random values and items from a file
-            almacenarPedidos("coca-cola",125.9f,0);
-            almacenarPedidos("Pepsi",120.7f,0);
-            almacenarPedidos("Fanta",115.6f,0);
-            almacenarPedidos("Fernet",300.1f,0);
-            almacenarPedidos("Agua Mineral",100.2f,0);
-            almacenarPedidos("Pancho",225.6f,0);
-            almacenarPedidos("Vino Tinto",325.0f,0);
-            almacenarPedidos("Choripan",200.0f,0);
-            almacenarPedidos("Lomito",350.5f,0);
-            almacenarPedidos("Fideos",300.8f,0);
-            almacenarPedidos("Lasagna",350.9f,0);
-            almacenarPedidos("Postre",150.1f,0);
-            almacenarPedidos("Café",99.9f,0);
-            almacenarPedidos("Asado",1560.1f,0);
-            almacenarPedidos("Ensalada",230.0f,0);
+            almacenarItemEnStock("coca-cola",125.9f     ,0,0);
+            almacenarItemEnStock("Pepsi",120.7f         ,0,0);
+            almacenarItemEnStock("Fanta",115.6f         ,0,0);
+            almacenarItemEnStock("Fernet",300.1f        ,0,0);
+            almacenarItemEnStock("Agua Mineral",100.2f  ,0,0);
+            almacenarItemEnStock("Pancho",225.6f        ,0,0);
+            almacenarItemEnStock("Vino Tinto",325.0f    ,0,0);
+            almacenarItemEnStock("Choripan",200.0f      ,0,0);
+            almacenarItemEnStock("Lomito",350.5f        ,0,0);
+            almacenarItemEnStock("Fideos",300.8f        ,0,0);
+            almacenarItemEnStock("Lasagna",350.9f       ,0,0);
+            almacenarItemEnStock("Postre",150.1f        ,0,0);
+            almacenarItemEnStock("Café",99.9f           ,0,0);
+            almacenarItemEnStock("Asado",1560.1f        ,0,0);
+            almacenarItemEnStock("Ensalada",230.0f      ,0,0);
         }
     }
 
@@ -52,7 +57,7 @@ public class AlmacenStock extends SQLiteOpenHelper  {
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         if (i != i1) {
             if (i1 == 2) {
-                sqLiteDatabase.execSQL("ALTER TABLE stock ADD COLUMN fecha DATETIME");
+                sqLiteDatabase.execSQL("ALTER TABLE " + TABLE_NAME + " ADD COLUMN fecha DATETIME");
             }
         }
     }
@@ -62,7 +67,7 @@ public class AlmacenStock extends SQLiteOpenHelper  {
         Integer quantityOfElements;
         try (SQLiteDatabase db = getReadableDatabase()) {
             quantityOfElements = 0;
-            try (Cursor cursor = db.rawQuery("SELECT COUNT(item) FROM stock", null)) {
+            try (Cursor cursor = db.rawQuery("SELECT COUNT(item) FROM " + TABLE_NAME + "", null)) {
                 while (cursor.moveToNext()) {
                     quantityOfElements = cursor.getInt(0);
                 }
@@ -75,13 +80,17 @@ public class AlmacenStock extends SQLiteOpenHelper  {
         return quantityOfElements > 1;
     }
 
-    public ArrayList<?> listaStockItems() {
+    public ArrayList<StockItem> listaStockItems() {
         SQLiteDatabase db = getReadableDatabase();
         ArrayList<StockItem> stockItems;
         stockItems = new ArrayList<>();
-        try (Cursor cursor = db.rawQuery("SELECT DISTINCT item, precio FROM stock", null)) {
+        try (Cursor cursor = db.rawQuery("SELECT DISTINCT item, precio, estado, cantidad FROM " + TABLE_NAME + "", null)) {
             while (cursor.moveToNext()) {
-                stockItems.add(new StockItem( cursor.getString(0), cursor.getFloat(1), 0));
+                String item = cursor.getString(0);
+                float precio = cursor.getFloat(2);
+                int estado = cursor.getInt(1);
+                int cantidad = cursor.getInt(3);
+                stockItems.add(new StockItem( item, precio, estado, cantidad));
             }
             cursor.close();
         }catch (Exception e){
@@ -91,21 +100,43 @@ public class AlmacenStock extends SQLiteOpenHelper  {
         return stockItems;
     }
 
-    public void actualizarEstadoItem(String item, int estado) {
-        SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("UPDATE stock SET estado = " + estado + " WHERE item = " + item + " )");
-        db.close();
+    public void actualizarCantidadItem(String item, int cantidad) {
+        try (SQLiteDatabase db = getWritableDatabase()) {
+            db.execSQL("UPDATE stock SET cantidad = " + cantidad + " WHERE item = " + item + " )");
+            db.close();
+        }
+        catch (Exception e){
+            Log.e("DB_STOCK","error: " + e.getMessage());
+        }
     }
 
-    public void almacenarPedidos(String item, float precio, int estado) {
-        SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("INSERT INTO stock VALUES (null, " + "'"+ item + "', " + precio + " , " + estado + " )");
-        db.close();
+    public void actualizarEstadoItem(String item, int estado) {
+        try (SQLiteDatabase db = getWritableDatabase()) {
+            db.execSQL("UPDATE " + TABLE_NAME + " SET estado = " + estado + " WHERE item = " + item + " )");
+            db.close();
+        }
+        catch (Exception e){
+            Log.e("DB_STOCK","error: " + e.getMessage());
+        }
+    }
+
+    public void almacenarItemEnStock(String item, float precio, int estado, int cantidad) {
+        try (SQLiteDatabase db = getWritableDatabase()) {
+            String query = "INSERT INTO " + TABLE_NAME + " VALUES (null, " + "'" + item + "', " + precio + " , " + estado + " , " + cantidad + " )";
+            db.execSQL(query);
+            db.close();
+        }catch (Exception ex){
+            Log.e("DB_STOCK","error: " + ex.getMessage());
+        }
     }
 
     public void eliminarPedidos(String item) {
-        SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("DELETE FROM stock WHERE item = " + item + ")");
-        db.close();
+        try (SQLiteDatabase db = getWritableDatabase()) {
+            db.execSQL("DELETE FROM " + TABLE_NAME + " WHERE item = " + item + ")");
+            db.close();
+        }
+        catch (Exception e){
+            Log.e("DB_STOCK","error: " + e.getMessage());
+        }
     }
 }

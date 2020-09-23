@@ -16,6 +16,7 @@ public class Mozo extends ListActivity {
     public AlmacenPedidos m_almacenPedidos;
     public AlmacenStock m_almacenStock;
     public ArrayList<StockItem> m_localStockItems;
+    private StockItemAdapter stockItemAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -29,14 +30,16 @@ public class Mozo extends ListActivity {
         FillStockList();
 
         //inicializo la lista con valores
-        setListAdapter(new StockItemAdapter(this, m_localStockItems));
+        stockItemAdapter = new StockItemAdapter(this, m_localStockItems);
+        setListAdapter(stockItemAdapter);
     }
 
     private void FillStockList()
     {
         m_almacenStock = new AlmacenStock(this, 1);
         m_almacenStock.populateDB();
-        ArrayList<StockItem> stockItems = (ArrayList<StockItem>) m_almacenStock.listaStockItems();
+        ArrayList<StockItem> stockItems;
+        stockItems = (ArrayList<StockItem>) m_almacenStock.listaStockItems();
         if (!stockItems.isEmpty()) {
             int numberOfItems = 0;
             for (StockItem itemFromStock : stockItems) {
@@ -54,19 +57,15 @@ public class Mozo extends ListActivity {
         Toast.makeText(this, "Item presionado: " + item.toString(), Toast.LENGTH_SHORT).show();
         for (StockItem itemFromStock : m_localStockItems) {
             if(((StockItem)item).getItemName().equals(itemFromStock.getItemName())){
-                int estado_actual = itemFromStock.getEstadoPedido();
-                if(estado_actual == 0){
-                    itemFromStock.setEstadoPedido(1);
-                }
-                else{
-                    itemFromStock.setEstadoPedido(0);
-                }
+                int cantidad_actual = itemFromStock.getCantidad();
+                itemFromStock.setCantidadItem(++cantidad_actual);
+                stockItemAdapter.notifyDataSetChanged();
             }
         }
         super.onListItemClick(l, v, position, id);
     }
 
-    private void endOrder(View view){
+    public void endOrder(View view){
         //Loop por todos los items que tengan estado seleccionado
         //almacenar el monto q sumen y msotrarlo en el cuadro de texto del precio
 
