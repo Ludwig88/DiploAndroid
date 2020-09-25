@@ -3,8 +3,10 @@ package com.example.restaurante;
 import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -17,6 +19,8 @@ public class Mozo extends ListActivity {
     public AlmacenStock m_almacenStock;
     public ArrayList<StockItem> m_localStockItems;
     private StockItemAdapter stockItemAdapter;
+    public float m_fPrecioTotal = 0.0f;
+    private int m_iUltimoPedidoId;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,17 +63,50 @@ public class Mozo extends ListActivity {
             if(((StockItem)item).getItemName().equals(itemFromStock.getItemName())){
                 int cantidad_actual = itemFromStock.getCantidad();
                 itemFromStock.setCantidadItem(++cantidad_actual);
+                UpdateTotalCost(itemFromStock.getPrecio());
                 stockItemAdapter.notifyDataSetChanged();
             }
         }
         super.onListItemClick(l, v, position, id);
     }
 
-    public void endOrder(View view){
-        //Loop por todos los items que tengan estado seleccionado
-        //almacenar el monto q sumen y msotrarlo en el cuadro de texto del precio
+    public void UpdateTotalCost(float nuevoItemPrecio){
+        m_fPrecioTotal = m_fPrecioTotal + nuevoItemPrecio;
+        TextView precioTot = findViewById(R.id.TotCost);
+        String s_prectioTot = precioTot.getText().toString();
+        precioTot.setText(s_prectioTot.replace("Costo Total:","Costo Total: " + String.valueOf(m_fPrecioTotal)));
+    }
 
-        //TODO: borrar! prueba
-        m_almacenPedidos.almacenarPedidos(1,"carlo",3,"coca", 123.9f,1,3);
+    private String getNameMozoActual(){
+        TextView NombreMozo = findViewById(R.id.editTextMozoVal);
+        return NombreMozo.toString();
+    }
+
+    private String getNumMesaActual(){
+        TextView NumMesaActual = findViewById(R.id.editTextMesaVal);
+        return NumMesaActual.toString();
+    }
+
+    private void UpdateUltimoPedido(){
+        int ultimoPedido = m_almacenPedidos.getUltimoPedido();
+        m_iUltimoPedidoId = ultimoPedido + 1;
+    }
+
+    public void crearOrden(View view){
+        //Loop por todos los items que tengan cantidad distinta a 0
+        for (StockItem itemFromStock : m_localStockItems) {
+            UpdateUltimoPedido();
+            if(itemFromStock.getCantidad() != 0){
+
+                String m_mozoName = getNameMozoActual();
+                String m_mesaNum = getNumMesaActual();
+                float itemPrecio = itemFromStock.getPrecio();
+                String itemName = itemFromStock.getItemName();
+                int estadoPedido = itemFromStock.getEstadoPedido(); //lo cambio directamente?
+                int itemCant = itemFromStock.getCantidad();
+                m_almacenPedidos.almacenarPedidos(m_iUltimoPedidoId,m_mozoName,m_mesaNum,itemName, itemPrecio,estadoPedido,itemCant);
+            }
+        }
+        Toast.makeText(this, "Orden " + m_iUltimoPedidoId + " Enviada ", Toast.LENGTH_LONG).show();
     }
 }

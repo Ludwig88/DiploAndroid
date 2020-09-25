@@ -39,6 +39,25 @@ public class AlmacenPedidos extends SQLiteOpenHelper  {
         }
     }
 
+    public int getUltimoPedido(){
+        SQLiteDatabase db = getReadableDatabase();
+        int pedidoNum = 0;
+        try (Cursor cursor = db.rawQuery("SELECT pedidoNum FROM pedidos ORDER BY pedidoNum DESC", null)) {
+            while (cursor.moveToNext()) {
+                int aux = cursor.getInt(0);
+                if(aux > pedidoNum){
+                    pedidoNum = aux;
+                }
+
+            }
+            cursor.close();
+        }catch (Exception e){
+            Log.e("DB_PEDIDOS","error: " + e.getMessage());
+        }
+        db.close();
+        return pedidoNum;
+    }
+
     public ArrayList<?> listaPedidos() {
         SQLiteDatabase db = getReadableDatabase();
         ArrayList<Pedido> pedidos;
@@ -57,10 +76,10 @@ public class AlmacenPedidos extends SQLiteOpenHelper  {
         return pedidos;
     }
 
-    public void almacenarPedidos(Integer pedID, String mozo, int mesaNum, String item, float precio, int estadoPedido, int cantidad) {
+    public void almacenarPedidos(Integer pedID, String mozo, String mesaNum, String item, float precio, int estadoPedido, int cantidad) {
         try (SQLiteDatabase db = getWritableDatabase()) {
-            db.execSQL("INSERT INTO pedidos VALUES (null, " + pedID + ",'" + mozo + "'," + mesaNum +
-                    ", '" + item + "', " + precio + ", " + estadoPedido + ", " + cantidad + " )");
+            db.execSQL("INSERT INTO pedidos VALUES (null, " + pedID + ",'" + mozo + "', '" + mesaNum +
+                    "', '" + item + "', " + precio + ", " + estadoPedido + ", " + cantidad + " )");
             db.close();
         }
         catch (Exception e){

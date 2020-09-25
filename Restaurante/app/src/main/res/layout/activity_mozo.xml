@@ -10,14 +10,14 @@
         android:id="@+id/button2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="endOrder"
+        android:onClick="crearOrden"
         android:text="@string/finalizar_pedido_button_text"
         android:textSize="24sp"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/TotCost"
         tools:layout_editor_absoluteX="16dp" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/TotCost"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="7dp"
