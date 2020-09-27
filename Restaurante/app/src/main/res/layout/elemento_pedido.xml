@@ -6,62 +6,46 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:descendantFocusability="blocksDescendants"
-    android:background="@color/colorUnselected">
+    android:background="@color/colorPreparing">
 
     <TextView
-        android:id="@+id/QantityTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"
-        android:layout_marginEnd="45dp"
-        android:text="CANTIDAD"
+        android:id="@+id/itemNameMozo"
+        android:layout_width="156dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="10dp"
+        android:text="Mozo: "
+        android:textColor="#000000"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textQuantity" />
-
-    <EditText
-        android:id="@+id/textQuantity"
-        android:layout_width="66dp"
-        android:layout_height="53dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="14dp"
-        android:layout_marginEnd="45dp"
-        android:ems="10"
-        android:inputType="number"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textPrice"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/ItemName"
-        android:layout_width="121dp"
-        android:layout_height="79dp"
-        android:layout_marginStart="25dp"
+        android:id="@+id/ItemNumberMesa"
+        android:layout_width="156dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="15dp"
-        android:textSize="30sp"
-        android:text="Item de comida"
+        android:layout_marginEnd="10dp"
+        android:text="Mesa: "
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/itemNameMozo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/precioTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="12dp"
-        android:text="PRECIO"
-        app:layout_constraintStart_toEndOf="@+id/ItemName"
-        app:layout_constraintTop_toBottomOf="@+id/textPrice" />
-
-    <EditText
-        android:id="@+id/textPrice"
-        android:layout_width="71dp"
-        android:layout_height="52dp"
-        android:layout_marginStart="40dp"
+        android:id="@+id/itemsText"
+        android:layout_width="325dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="15dp"
-        android:text="0"
-        android:inputType="numberSigned|number|numberDecimal"
-        app:layout_constraintEnd_toStartOf="@+id/textQuantity"
-        app:layout_constraintStart_toEndOf="@+id/ItemName"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginEnd="10dp"
+        android:text="ITEMS: "
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ItemNumberMesa" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

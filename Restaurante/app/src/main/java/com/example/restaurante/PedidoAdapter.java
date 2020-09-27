@@ -39,14 +39,17 @@ public class PedidoAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         view = m_layoutInflater.inflate(R.layout.elemento_pedido, null);
-        TextView nombreItem = view.findViewById(R.id.ItemName);
-        TextView cantidadItem = view.findViewById(R.id.textQuantity);
-        TextView precioItem = view.findViewById(R.id.textPrice);
-        nombreItem.setText(((Pedido)getItem(i)).getItem());
-        cantidadItem.setText(((Pedido)getItem(i)).getCantidadItem());
-        precioItem.setText(((int) ((Pedido) getItem(i)).getPrecio())); //FIXME: use float not int
+        TextView mesaNum = view.findViewById(R.id.ItemNumberMesa);
+        TextView mozoName = view.findViewById(R.id.itemNameMozo);
+        TextView itemsText = view.findViewById(R.id.itemsText);
+        String numeroMesa = String.valueOf(((Pedido)getItem(i)).getesaNum());
+        mesaNum.setText("Mesa: " + numeroMesa);
+        String nombreMozo = ((Pedido)getItem(i)).getMozo();
+        mozoName.setText("Mozo: " +nombreMozo);
+        String pedidoItem = (((Pedido) getItem(i)).getItem());
+        itemsText.setText("ITEM: " + pedidoItem);
         //TODO: acording to order state must change background color
-        //R.layout.elemento_pedido. getColor(R.color.colorSelected)
+        //R.layout.elemento_stock. getColor(R.color.colorSelected)
         return view;
     }
 }

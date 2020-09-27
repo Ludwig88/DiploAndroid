@@ -3,6 +3,10 @@
     <color name="colorPrimary">#A6EAD298</color>
     <color name="colorUnselected">#DAD289</color>
     <color name="colorSelected">#009688</color>
+    <color name="colorPreparing">#A1EDD820</color>
+    <color name="colorReady">#87EA8B</color>
+    <color name="colorDelivered">#4CAF50</color>
+    <color name="colorDelayed">#DA5F56</color>
     <color name="colorPrimaryDark">#D87A280E</color>
     <color name="colorAccent">#13B6A6</color>
 </resources>

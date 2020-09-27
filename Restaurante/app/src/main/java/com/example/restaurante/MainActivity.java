@@ -8,7 +8,7 @@ import android.view.View;
 
 
 public class MainActivity extends AppCompatActivity {
-
+    public AlmacenStock m_almacenStock;
     public AlmacenPedidos m_almacenPedidos;
 
     @Override
@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         m_almacenPedidos = new AlmacenPedidos(this,1);
+        m_almacenStock = new AlmacenStock(this,1);
     }
 
     public void NavigateToCocina(View view)

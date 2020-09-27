@@ -3,33 +3,29 @@ package com.example.restaurante;
 import androidx.annotation.NonNull;
 
 enum Estado {
+    DESCONOCIDO,
     EN_ESPERA, //ES necesario?
     PREPARANDO,
     LISTO,
-    ENTREGADO,
-    DESCONOCIDO
+    ENTREGADO
 };
 
 public class Pedido {
-    private Integer m_duniqueID; //Ver diferencia con DOuble
+    private Integer m_duniqueID;
     private Integer m_iPedidoID; //Ver diferencia con INTEGER
     private String m_sMozo;
     private int m_iMesaNum;
     private String m_sItem;
-    private float m_fPrecio;
-    private int m_iestadoPedido;
-    private int m_cantidadItem;
+    private int m_iestadoPedido; //0 = DESCONOCIDO, 1 = EN_ESPERA, 2 = PREPARANDO, 3 = LISTO
     private Estado m_EestadoPedido = Estado.DESCONOCIDO;
 
-    public Pedido(Integer uniqID, Integer pedID, String mozo, int mesaNum, String item, float precio, int estadoPedido, int cantidad){
+    public Pedido(Integer uniqID, Integer pedID, String mozo, int mesaNum, String ListItem, int estadoPedido){
         m_duniqueID = uniqID;
         m_iPedidoID = pedID;
         m_sMozo = mozo;
         m_iMesaNum = mesaNum;
-        m_sItem = item;
-        m_fPrecio = precio;
+        m_sItem = ListItem;
         m_iestadoPedido = estadoPedido;
-        m_cantidadItem = cantidad;
     }
 
     public Integer getuniqueID(){
@@ -50,10 +46,6 @@ public class Pedido {
 
     public String getItem(){
         return m_sItem;
-    }
-
-    public float getPrecio(){
-        return m_fPrecio;
     }
 
     public int getEstadoPedido(){
@@ -82,12 +74,9 @@ public class Pedido {
         return actual;
     }
 
-    public int getCantidadItem(){
-        return m_cantidadItem;
-    }
     @NonNull
     public String toString(){
-        return "Pedido[" + m_duniqueID + "|" + m_iPedidoID + "] - Mozo " + m_sMozo + "- Mesa " + m_iMesaNum + " Estado " + m_iestadoPedido + "\n";
+        return "Pedido[" + m_iPedidoID + "] - Mozo " + m_sMozo + "- Mesa " + m_iMesaNum + " Estado " + m_iestadoPedido + "\n";
     }
 
 }

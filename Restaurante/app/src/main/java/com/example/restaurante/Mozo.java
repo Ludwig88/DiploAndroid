@@ -74,17 +74,20 @@ public class Mozo extends ListActivity {
         m_fPrecioTotal = m_fPrecioTotal + nuevoItemPrecio;
         TextView precioTot = findViewById(R.id.TotCost);
         String s_prectioTot = precioTot.getText().toString();
-        precioTot.setText(s_prectioTot.replace("Costo Total:","Costo Total: " + String.valueOf(m_fPrecioTotal)));
+        String cost_title = s_prectioTot.substring(0,s_prectioTot.indexOf(":") + 1);
+        precioTot.setText( cost_title + " " + String.valueOf(m_fPrecioTotal));
     }
 
     private String getNameMozoActual(){
         TextView NombreMozo = findViewById(R.id.editTextMozoVal);
-        return NombreMozo.toString();
+        String nombre_mozo = NombreMozo.getText().toString();
+        return nombre_mozo;
     }
 
     private String getNumMesaActual(){
         TextView NumMesaActual = findViewById(R.id.editTextMesaVal);
-        return NumMesaActual.toString();
+        String num_MesaActual = NumMesaActual.getText().toString();
+        return num_MesaActual;
     }
 
     private void UpdateUltimoPedido(){
@@ -93,20 +96,22 @@ public class Mozo extends ListActivity {
     }
 
     public void crearOrden(View view){
+        UpdateUltimoPedido();
+        StringBuilder ListItem = new StringBuilder();
+        String itemName;
+        int itemCant;
+        //obtengo los valores fijos en cada pedido
+        String m_mozoName = getNameMozoActual();
+        String m_mesaNum = getNumMesaActual();
         //Loop por todos los items que tengan cantidad distinta a 0
         for (StockItem itemFromStock : m_localStockItems) {
-            UpdateUltimoPedido();
             if(itemFromStock.getCantidad() != 0){
-
-                String m_mozoName = getNameMozoActual();
-                String m_mesaNum = getNumMesaActual();
-                float itemPrecio = itemFromStock.getPrecio();
-                String itemName = itemFromStock.getItemName();
-                int estadoPedido = itemFromStock.getEstadoPedido(); //lo cambio directamente?
-                int itemCant = itemFromStock.getCantidad();
-                m_almacenPedidos.almacenarPedidos(m_iUltimoPedidoId,m_mozoName,m_mesaNum,itemName, itemPrecio,estadoPedido,itemCant);
+                itemName = itemFromStock.getItemName();
+                itemCant = itemFromStock.getCantidad();
+                ListItem.append(itemName).append(" * ").append(itemCant).append(", ");
             }
         }
+        m_almacenPedidos.almacenarPedidos(m_iUltimoPedidoId,m_mozoName,m_mesaNum,ListItem.toString(),1);
         Toast.makeText(this, "Orden " + m_iUltimoPedidoId + " Enviada ", Toast.LENGTH_LONG).show();
     }
 }
