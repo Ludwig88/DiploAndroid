@@ -1,11 +1,14 @@
 package com.example.restaurante;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
 
@@ -36,6 +39,21 @@ public class PedidoAdapter extends BaseAdapter {
         return m_pedidos.get(i).getPedidoID(); //FIXME: es esto correcto?
     }
 
+    public int changeBackgroundColorFromState(int State){
+        switch (State){
+            case 0: //EN_ESPERA
+                return R.color.colorOnHold;
+            case 1: //PREPARANDO
+                return R.color.colorPreparing;
+            case 2: //LISTO
+                return R.color.colorReady;
+            case 3: //ENTREGADO
+                return R.color.colorDelivered;
+            default: //DESCONOCIDO
+                return R.color.colorUnselected;
+        }
+    }
+    @SuppressLint("ResourceAsColor")
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         view = m_layoutInflater.inflate(R.layout.elemento_pedido, null);
@@ -48,8 +66,9 @@ public class PedidoAdapter extends BaseAdapter {
         mozoName.setText("Mozo: " +nombreMozo);
         String pedidoItem = (((Pedido) getItem(i)).getItem());
         itemsText.setText("ITEM: " + pedidoItem);
+        int pedidoEstado = (((Pedido) getItem(i)).getEstadoPedido());
         //TODO: acording to order state must change background color
-        //R.layout.elemento_stock. getColor(R.color.colorSelected)
+        view.setBackgroundColor(ContextCompat.getColor(m_context,changeBackgroundColorFromState(pedidoEstado)));
         return view;
     }
 }

@@ -4,6 +4,7 @@ import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -34,16 +35,13 @@ public class Cocina extends ListActivity {
     protected void onListItemClick(ListView l, View v, int position, long id) {
         Object item = getListAdapter().getItem(position);
         Toast.makeText(this, "Pedido presionado: " + item.toString(), Toast.LENGTH_SHORT).show();
-        /*
-        for (Pedido itemFromStock : m_localPedido) {
-            if(((Pedido)item).getItemName().equals(itemFromStock.getItemName())){
-                int cantidad_actual = itemFromStock.getCantidad();
-                itemFromStock.setCantidadItem(++cantidad_actual);
-                UpdateTotalCost(itemFromStock.getPrecio());
-                stockItemAdapter.notifyDataSetChanged();
+        for (Pedido itemFromStock : m_localPedidos) {
+            if(((Pedido)item).getuniqueID().equals(itemFromStock.getuniqueID())){
+                int estado_actual = itemFromStock.getEstadoPedido();
+                itemFromStock.setEstadoItem(++estado_actual);
+                m_pedidoAdapter.notifyDataSetChanged();
             }
         }
-         */
         super.onListItemClick(l, v, position, id);
     }
 

@@ -52,6 +52,15 @@ public class Pedido {
         return m_iestadoPedido;
     }
 
+    public void setEstadoItem(int estado){
+        if(estado >= 3){
+            m_iestadoPedido = 0;
+        }
+        else {
+            m_iestadoPedido = estado;
+        }
+    }
+
     public Estado getEstadoPedidoEnum(){
         Estado actual;
         switch (m_iestadoPedido){

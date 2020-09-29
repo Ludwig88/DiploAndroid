@@ -64,6 +64,7 @@ public class Mozo extends ListActivity {
                 int cantidad_actual = itemFromStock.getCantidad();
                 itemFromStock.setCantidadItem(++cantidad_actual);
                 UpdateTotalCost(itemFromStock.getPrecio());
+                //FIXME: when using a simulator the app crashes
                 stockItemAdapter.notifyDataSetChanged();
             }
         }
