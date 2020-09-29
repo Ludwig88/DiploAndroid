@@ -36,7 +36,7 @@ public class PedidoAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int i) {
-        return m_pedidos.get(i).getPedidoID(); //FIXME: es esto correcto?
+        return m_pedidos.get(i).getNumeroPedido();
     }
 
     public int changeBackgroundColorFromState(int State){
@@ -60,15 +60,18 @@ public class PedidoAdapter extends BaseAdapter {
         TextView mesaNum = view.findViewById(R.id.ItemNumberMesa);
         TextView mozoName = view.findViewById(R.id.itemNameMozo);
         TextView itemsText = view.findViewById(R.id.itemsText);
+
         String numeroMesa = String.valueOf(((Pedido)getItem(i)).getesaNum());
         mesaNum.setText("Mesa: " + numeroMesa);
         String nombreMozo = ((Pedido)getItem(i)).getMozo();
         mozoName.setText("Mozo: " +nombreMozo);
         String pedidoItem = (((Pedido) getItem(i)).getItem());
         itemsText.setText("ITEM: " + pedidoItem);
+
+        // According to order state must change background color
         int pedidoEstado = (((Pedido) getItem(i)).getEstadoPedido());
-        //TODO: acording to order state must change background color
-        view.setBackgroundColor(ContextCompat.getColor(m_context,changeBackgroundColorFromState(pedidoEstado)));
+        view.setBackgroundColor(ContextCompat.getColor(
+                m_context,changeBackgroundColorFromState(pedidoEstado)));
         return view;
     }
 }

@@ -12,7 +12,7 @@ enum Estado {
 
 public class Pedido {
     private Integer m_duniqueID;
-    private Integer m_iPedidoID; //Ver diferencia con INTEGER
+    private Integer m_iNumeroPedido;
     private String m_sMozo;
     private int m_iMesaNum;
     private String m_sItem;
@@ -21,7 +21,7 @@ public class Pedido {
 
     public Pedido(Integer uniqID, Integer pedID, String mozo, int mesaNum, String ListItem, int estadoPedido){
         m_duniqueID = uniqID;
-        m_iPedidoID = pedID;
+        m_iNumeroPedido = pedID;
         m_sMozo = mozo;
         m_iMesaNum = mesaNum;
         m_sItem = ListItem;
@@ -36,8 +36,8 @@ public class Pedido {
         return m_sMozo;
     }
 
-    public Integer getPedidoID(){
-        return m_iPedidoID;
+    public Integer getNumeroPedido(){
+        return m_iNumeroPedido;
     }
 
     public int getesaNum(){
@@ -53,7 +53,7 @@ public class Pedido {
     }
 
     public void setEstadoItem(int estado){
-        if(estado >= 3){
+        if(estado > 3){
             m_iestadoPedido = 0;
         }
         else {
@@ -85,7 +85,7 @@ public class Pedido {
 
     @NonNull
     public String toString(){
-        return "Pedido[" + m_iPedidoID + "] - Mozo " + m_sMozo + "- Mesa " + m_iMesaNum + " Estado " + m_iestadoPedido + "\n";
+        return "Pedido[" + m_iNumeroPedido + "] - Mozo " + m_sMozo + "- Mesa " + m_iMesaNum + " Estado " + m_iestadoPedido + "\n";
     }
 
 }

@@ -40,7 +40,7 @@ public class AlmacenPedidos extends SQLiteOpenHelper  {
         }
     }
 
-    public int getUltimoPedido(){
+    public int getLastOrderNumber(){
         SQLiteDatabase db = getReadableDatabase();
         int pedidoNum = 0;
         try (Cursor cursor = db.rawQuery("SELECT pedidoNum FROM " + DB_TABLE_NAME  + " ORDER BY pedidoNum DESC", null)) {
@@ -80,6 +80,22 @@ public class AlmacenPedidos extends SQLiteOpenHelper  {
         return pedidos;
     }
 
+    public ArrayList<Integer> listaNumPedidos() {
+        SQLiteDatabase db = getReadableDatabase();
+        ArrayList<Integer> pedidosNUM;
+        pedidosNUM = new ArrayList<>();
+        try (Cursor cursor = db.rawQuery("SELECT DISTINCT pedidoNum FROM " + DB_TABLE_NAME  + " ORDER BY pedidoNum DESC", null)) {
+            while (cursor.moveToNext()) {
+                pedidosNUM.add(cursor.getInt(0));
+            }
+            cursor.close();
+        }catch (Exception e){
+            Log.e("DB_PEDIDOS","error: " + e.getMessage());
+        }
+        db.close();
+        return pedidosNUM;
+    }
+
     public void almacenarPedidos(Integer pedID, String mozo, String mesaNum, String ListItem, int estadoPedido) {
         try (SQLiteDatabase db = getWritableDatabase()) {
             db.execSQL("INSERT INTO " + DB_TABLE_NAME  + " VALUES (null, " + pedID + ",'" + mozo + "', '" + mesaNum +
@@ -91,9 +107,26 @@ public class AlmacenPedidos extends SQLiteOpenHelper  {
         }
     }
 
-    public void eliminarPedidos(Integer pedID) {
+    public void eliminarTodosLosPedidos() {
+        ArrayList<Integer> pedidosNUM = listaNumPedidos();
+        for(Integer numPed : pedidosNUM){
+            eliminarPedidos(numPed);
+        }
+    }
+
+    public void updateOrderState(Integer numPedido, int estado) {
         try (SQLiteDatabase db = getWritableDatabase()) {
-            db.execSQL("DELETE FROM " + DB_TABLE_NAME  + " WHERE pedidoNum = " + pedID + ")");
+            db.execSQL("UPDATE " + DB_TABLE_NAME  + " SET estado = " + estado + " WHERE pedidoNum = " + numPedido);
+            db.close();
+        }
+        catch (Exception e){
+            Log.e("DB_PEDIDOS","error: " + e.getMessage());
+        }
+    }
+
+    public void eliminarPedidos(Integer numPedido) {
+        try (SQLiteDatabase db = getWritableDatabase()) {
+            db.execSQL("DELETE FROM " + DB_TABLE_NAME  + " WHERE pedidoNum = " + numPedido );
             db.close();
         }
         catch (Exception e){

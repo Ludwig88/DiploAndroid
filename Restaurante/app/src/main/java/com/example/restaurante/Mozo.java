@@ -3,8 +3,6 @@ package com.example.restaurante;
 import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -58,7 +56,6 @@ public class Mozo extends ListActivity {
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         Object item = getListAdapter().getItem(position);
-        Toast.makeText(this, "Item presionado: " + item.toString(), Toast.LENGTH_SHORT).show();
         for (StockItem itemFromStock : m_localStockItems) {
             if(((StockItem)item).getItemName().equals(itemFromStock.getItemName())){
                 int cantidad_actual = itemFromStock.getCantidad();
@@ -92,7 +89,7 @@ public class Mozo extends ListActivity {
     }
 
     private void UpdateUltimoPedido(){
-        int ultimoPedido = m_almacenPedidos.getUltimoPedido();
+        int ultimoPedido = m_almacenPedidos.getLastOrderNumber();
         m_iUltimoPedidoId = ultimoPedido + 1;
     }
 
@@ -103,7 +100,17 @@ public class Mozo extends ListActivity {
         int itemCant;
         //obtengo los valores fijos en cada pedido
         String m_mozoName = getNameMozoActual();
+        if(m_mozoName.isEmpty())
+        {
+            Toast.makeText(this, "ERROR: Ingresar Nombre Mozo! ", Toast.LENGTH_LONG).show();
+            return;
+        }
         String m_mesaNum = getNumMesaActual();
+        if(m_mesaNum.isEmpty())
+        {
+            Toast.makeText(this, "ERROR: Ingresar Numero de mesa! ", Toast.LENGTH_LONG).show();
+            return;
+        }
         //Loop por todos los items que tengan cantidad distinta a 0
         for (StockItem itemFromStock : m_localStockItems) {
             if(itemFromStock.getCantidad() != 0){

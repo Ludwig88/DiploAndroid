@@ -55,7 +55,7 @@
             android:ems="10"
             android:importantForAutofill="no"
             android:inputType="textPersonName"
-            android:text="2" />
+            android:text="" />
 
         <TextView
             android:id="@+id/textMozoTitle"
@@ -70,7 +70,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="MozoNombre" />
+            android:text="" />
 
         <FrameLayout
             android:layout_width="match_parent"

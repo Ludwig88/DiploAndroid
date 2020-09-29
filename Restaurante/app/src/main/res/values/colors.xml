@@ -4,8 +4,8 @@
     <color name="colorSelected">#009688</color>
     <color name="colorUnselected">#DAD289</color>
     <color name="colorOnHold">#FFC107</color>
-    <color name="colorPreparing">#24E82C</color>
-    <color name="colorReady">#03A9F4</color>
+    <color name="colorPreparing">#03A9F4</color>
+    <color name="colorReady">#24E82C</color>
     <color name="colorDelivered">#9C27B0</color>
     <color name="colorDelayed">#EA372A</color>
     <color name="colorPrimaryDark">#D87A280E</color>

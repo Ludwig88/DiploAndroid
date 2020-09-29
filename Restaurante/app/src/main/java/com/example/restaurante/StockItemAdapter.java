@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
+
 import java.util.ArrayList;
 
 public class StockItemAdapter extends BaseAdapter {
@@ -47,8 +49,8 @@ public class StockItemAdapter extends BaseAdapter {
         cantidadItem.setText(cantidad_string);
         float precio = (float) ((StockItem)getItem(i)).getPrecio();
         precioItem.setText(String.valueOf(precio));
-        //TODO: acording to order state must change background color
-        //R.layout.elemento_stock. getColor(R.color.colorSelected)
+        int colorItem = cantidad_int > 0 ? R.color.colorSelected : R.color.colorUnselected;
+        view.setBackgroundColor(ContextCompat.getColor(m_context,colorItem));
         return view;
     }
 }
