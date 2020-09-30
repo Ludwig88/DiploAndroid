@@ -63,7 +63,6 @@ public class Cocina extends ListActivity {
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         Object item = getListAdapter().getItem(position);
-        Toast.makeText(this, "Pedido presionado: " + item.toString(), Toast.LENGTH_SHORT).show();
         for (Pedido itemPedido : m_localPedidos) {
             if(((Pedido)item).getuniqueID().equals(itemPedido.getuniqueID())){
                 int estado_actual = itemPedido.getEstadoPedido();
@@ -75,6 +74,8 @@ public class Cocina extends ListActivity {
                 // update view
                 PedidoAdapter pedidoAdapter = new PedidoAdapter(this, m_localPedidos);
                 setListAdapter(pedidoAdapter);
+
+                Toast.makeText(this, "Pedido presionado: " + item.toString(), Toast.LENGTH_SHORT).show();
 
                 //Send notification
                 SendOrderReadyNotification(itemPedido);
