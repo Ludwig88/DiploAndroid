@@ -3,6 +3,7 @@ package com.example.restaurante;
 import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +20,8 @@ public class Mozo extends ListActivity {
     private StockItemAdapter stockItemAdapter;
     public float m_fPrecioTotal = 0.0f;
     private int m_iUltimoPedidoId;
+    private ListView listView;
+    private double m_LastClickTime;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,6 +35,8 @@ public class Mozo extends ListActivity {
         FillStockList();
 
         //inicializo la lista con valores
+        listView = (ListView) findViewById(android.R.id.list);
+        listView.setItemsCanFocus(true);
         stockItemAdapter = new StockItemAdapter(this, m_localStockItems);
         setListAdapter(stockItemAdapter);
     }
@@ -55,17 +60,28 @@ public class Mozo extends ListActivity {
 
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
+        long currentTime = System.currentTimeMillis();
+        boolean isReset = false;
+        if(currentTime - m_LastClickTime < ViewConfiguration.getDoubleTapTimeout()) {
+            isReset = true;
+        }
+        m_LastClickTime = currentTime;
+        updateCantValue(position, isReset);
+        super.onListItemClick(l, v, position, id);
+    }
+
+    private void updateCantValue(int position, boolean isReset){
         Object item = getListAdapter().getItem(position);
         for (StockItem itemFromStock : m_localStockItems) {
             if(((StockItem)item).getItemName().equals(itemFromStock.getItemName())){
                 int cantidad_actual = itemFromStock.getCantidad();
-                itemFromStock.setCantidadItem(++cantidad_actual);
+                itemFromStock.setCantidadItem(isReset? 0 : ++cantidad_actual);
                 UpdateTotalCost(itemFromStock.getPrecio());
+                Toast.makeText(this, "doble click reinicia cuenta ", Toast.LENGTH_SHORT).show();
                 //FIXME: when using a simulator the app crashes
                 stockItemAdapter.notifyDataSetChanged();
             }
         }
-        super.onListItemClick(l, v, position, id);
     }
 
     public void UpdateTotalCost(float nuevoItemPrecio){

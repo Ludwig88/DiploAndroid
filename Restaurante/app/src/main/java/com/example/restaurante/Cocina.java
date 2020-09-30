@@ -12,7 +12,6 @@ public class Cocina extends ListActivity {
 
     public AlmacenPedidos m_almacenPedidos;
     public ArrayList<Pedido> m_localPedidos;
-    private PedidoAdapter m_pedidoAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,8 +21,8 @@ public class Cocina extends ListActivity {
         refreshLocalOrders();
 
         //inicializo la lista con los pedidos obtenidos
-        m_pedidoAdapter = new PedidoAdapter(this, m_localPedidos);
-        setListAdapter(m_pedidoAdapter);
+        PedidoAdapter pedidoAdapter = new PedidoAdapter(this, m_localPedidos);
+        setListAdapter(pedidoAdapter);
     }
 
     protected void borrarDb(View view){
@@ -37,10 +36,12 @@ public class Cocina extends ListActivity {
     public void refreshOrders(View view){
         refreshLocalOrders();
         for (int i = 0; i < m_localPedidos.size(); ++i) {
-            if(m_localPedidos.get(i).getEstadoPedido() > 3){
-                m_almacenPedidos.eliminarPedidos(m_localPedidos.get(i).getNumeroPedido());
+            if (m_localPedidos.get(i).getEstadoPedido() >= 3) {
+                int numeroPedido = m_localPedidos.get(i).getNumeroPedido();
                 m_localPedidos.remove(i);
-                m_pedidoAdapter.notifyDataSetChanged();
+                m_almacenPedidos.eliminarPedidos(numeroPedido);
+                PedidoAdapter pedidoAdapter = new PedidoAdapter(this, m_localPedidos);
+                setListAdapter(pedidoAdapter);
             }
         }
     }
@@ -53,11 +54,12 @@ public class Cocina extends ListActivity {
             if(((Pedido)item).getuniqueID().equals(itemFromStock.getuniqueID())){
                 int estado_actual = itemFromStock.getEstadoPedido();
                 int nuevo_estado = estado_actual + 1;
+                //update DB and local Array
                 itemFromStock.setEstadoItem(nuevo_estado);
-                //update DB also
                 m_almacenPedidos.updateOrderState(itemFromStock.getNumeroPedido() ,nuevo_estado);
-                m_pedidoAdapter.notifyDataSetChanged();
-            }
+
+                PedidoAdapter pedidoAdapter = new PedidoAdapter(this, m_localPedidos);
+                setListAdapter(pedidoAdapter);            }
         }
         super.onListItemClick(l, v, position, id);
     }
