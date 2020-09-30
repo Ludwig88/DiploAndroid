@@ -1,7 +1,11 @@
 package com.example.restaurante;
 
 import android.app.ListActivity;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.os.Bundle;
+import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -46,20 +50,35 @@ public class Cocina extends ListActivity {
         }
     }
 
+    void SendOrderReadyNotification(Pedido itemPedido){
+        String pedido_listo = "Pedido Nº"+ itemPedido.getNumeroPedido() + " LISTO /n" + itemPedido.getMozo() + " debe retirar";
+        NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        Notification.Builder builder = new Notification.Builder(this);
+        builder.setContentTitle("Orden Lista");
+        builder.setSmallIcon(android.R.drawable.star_on);
+        builder.setContentInfo(pedido_listo);
+        //TODO: sent it!
+    }
+
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         Object item = getListAdapter().getItem(position);
         Toast.makeText(this, "Pedido presionado: " + item.toString(), Toast.LENGTH_SHORT).show();
-        for (Pedido itemFromStock : m_localPedidos) {
-            if(((Pedido)item).getuniqueID().equals(itemFromStock.getuniqueID())){
-                int estado_actual = itemFromStock.getEstadoPedido();
+        for (Pedido itemPedido : m_localPedidos) {
+            if(((Pedido)item).getuniqueID().equals(itemPedido.getuniqueID())){
+                int estado_actual = itemPedido.getEstadoPedido();
                 int nuevo_estado = estado_actual + 1;
-                //update DB and local Array
-                itemFromStock.setEstadoItem(nuevo_estado);
-                m_almacenPedidos.updateOrderState(itemFromStock.getNumeroPedido() ,nuevo_estado);
+                //update DB and local array
+                itemPedido.setEstadoItem(nuevo_estado);
+                m_almacenPedidos.updateOrderState(itemPedido.getNumeroPedido() ,nuevo_estado);
 
+                // update view
                 PedidoAdapter pedidoAdapter = new PedidoAdapter(this, m_localPedidos);
-                setListAdapter(pedidoAdapter);            }
+                setListAdapter(pedidoAdapter);
+
+                //Send notification
+                SendOrderReadyNotification(itemPedido);
+            }
         }
         super.onListItemClick(l, v, position, id);
     }
