@@ -75,10 +75,15 @@ public class Mozo extends ListActivity {
         for (StockItem itemFromStock : m_localStockItems) {
             if(((StockItem)item).getItemName().equals(itemFromStock.getItemName())){
                 int cantidad_actual = itemFromStock.getCantidad();
-                itemFromStock.setCantidadItem(isReset? 0 : ++cantidad_actual);
-                UpdateTotalCost(itemFromStock.getPrecio());
-                Toast.makeText(this, "doble click reinicia cuenta ", Toast.LENGTH_SHORT).show();
-                //FIXME: when using a simulator the app crashes
+                if(!isReset){
+                    itemFromStock.setCantidadItem(isReset? 0 : ++cantidad_actual);
+                    UpdateTotalCost(itemFromStock.getPrecio());
+                    Toast.makeText(this, "doble click reinicia cuenta ", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    UpdateTotalCost((-1) * cantidad_actual * itemFromStock.getPrecio());
+                    itemFromStock.setCantidadItem(0);
+                }
                 stockItemAdapter.notifyDataSetChanged();
             }
         }
@@ -135,6 +140,7 @@ public class Mozo extends ListActivity {
                 ListItem.append(itemName).append(" * ").append(itemCant).append(", ");
             }
         }
+        UpdateTotalCost(0.0f);
         m_almacenPedidos.almacenarPedidos(m_iUltimoPedidoId,m_mozoName,m_mesaNum,ListItem.toString(),1);
         Toast.makeText(this, "Orden " + m_iUltimoPedidoId + " Enviada ", Toast.LENGTH_LONG).show();
     }
