@@ -7,7 +7,7 @@
     tools:context=".Mozo">
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/buttonOrder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="crearOrden"

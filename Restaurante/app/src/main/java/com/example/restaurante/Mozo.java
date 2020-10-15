@@ -4,6 +4,7 @@ import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewConfiguration;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,6 +40,9 @@ public class Mozo extends ListActivity {
         listView.setItemsCanFocus(true);
         stockItemAdapter = new StockItemAdapter(this, m_localStockItems);
         setListAdapter(stockItemAdapter);
+
+        Button botonSendPEdido = findViewById(R.id.buttonOrder);
+        botonSendPEdido.setEnabled(false);
     }
 
     private void FillStockList()
@@ -72,6 +76,7 @@ public class Mozo extends ListActivity {
 
     private void updateCantValue(int position, boolean isReset){
         Object item = getListAdapter().getItem(position);
+        boolean hasSelected = false;
         for (StockItem itemFromStock : m_localStockItems) {
             if(((StockItem)item).getItemName().equals(itemFromStock.getItemName())){
                 int cantidad_actual = itemFromStock.getCantidad();
@@ -86,7 +91,12 @@ public class Mozo extends ListActivity {
                 }
                 stockItemAdapter.notifyDataSetChanged();
             }
+            if(itemFromStock.getCantidad() > 0){
+                hasSelected = true;
+            }
         }
+        Button botonSendPEdido = findViewById(R.id.buttonOrder);
+        botonSendPEdido.setEnabled(hasSelected);
     }
 
     public void UpdateTotalCost(float nuevoItemPrecio){
